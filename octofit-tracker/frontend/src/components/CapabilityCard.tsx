@@ -4,7 +4,7 @@ import { getJson } from '../api/client.js';
 type Props<T> = {
   title: string;
   description: string;
-  endpoint: string;
+  load: () => Promise<T>;
   emptyMessage: string;
   isEmpty: (data: T) => boolean;
   renderData: (data: T) => ReactNode;
@@ -13,7 +13,7 @@ type Props<T> = {
 export function CapabilityCard<T>({
   title,
   description,
-  endpoint,
+  load,
   emptyMessage,
   isEmpty,
   renderData,
@@ -28,7 +28,7 @@ export function CapabilityCard<T>({
     setError(undefined);
     setData(undefined);
 
-    getJson<T>(endpoint)
+    load()
       .then((response) => {
         if (active) setData(response);
       })
@@ -42,7 +42,7 @@ export function CapabilityCard<T>({
     return () => {
       active = false;
     };
-  }, [endpoint]);
+  }, [load]);
 
   return (
     <section className="card h-100">

@@ -1,15 +1,20 @@
+import { getJson } from '../api/client.js';
 import { CapabilityCard } from './CapabilityCard.js';
 
 type LeaderboardData = {
   leaderboard: { teamName: string; totalPoints: number; rank: number }[];
 };
 
+function loadLeaderboard() {
+  return getJson<LeaderboardData>('/api/leaderboard');
+}
+
 export default function Leaderboard() {
   return (
     <CapabilityCard<LeaderboardData>
       title="Leaderboard"
       description="Compare team point totals."
-      endpoint="/api/leaderboard"
+      load={loadLeaderboard}
       emptyMessage="No leaderboard rankings yet."
       isEmpty={(data) => data.leaderboard.length === 0}
       renderData={(data) => (
