@@ -6,3 +6,4 @@ export async function getJson<T>(path: string): Promise<T> {
   if (!response.ok) throw new Error(`Request failed with ${response.status}`);
   return response.json() as Promise<T>;
 }
+
