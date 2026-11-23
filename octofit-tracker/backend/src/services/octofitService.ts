@@ -135,4 +135,5 @@ export async function suggestWorkouts(userEmail: string) {
   return workouts.map((workout) => ({ ...workout, reason }));
 }
 
+
 export { User };
